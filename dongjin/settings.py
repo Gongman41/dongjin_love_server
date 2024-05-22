@@ -34,8 +34,9 @@ DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    'dongjin_love_server.onrender.com'
+    'dongjin-love-server.onrender.com'
 ]
+
 
 
 # Application definition
