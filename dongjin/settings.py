@@ -127,7 +127,7 @@ WSGI_APPLICATION = 'dongjin.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("postgres://dongjin_love_db_wsry_user:259a0fsH7MYtT2XxPlChMX2FNJ7XsU0o@dpg-cp74cb0l5elc73e3emn0-a.oregon-postgres.render.com/dongjin_love_db_wsry"))
+    'default': dj_database_url.parse(os.environ.get("postgres://dongjin_love_db_wsry_user:259a0fsH7MYtT2XxPlChMX2FNJ7XsU0o@dpg-cp74cb0l5elc73e3emn0-a.oregon-postgres.render.com/dongjin_love_db_wsry").decode("utf-8"))
 }
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
