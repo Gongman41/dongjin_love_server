@@ -31,7 +31,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-zkvi!&0_69px@f^96(agn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'dongjin_love_server.onrender.com'
+]
 
 
 # Application definition
@@ -123,7 +127,7 @@ WSGI_APPLICATION = 'dongjin.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.parse(os.getenv('DATABASE_URL', 'postgres://dongjin_love_db_user:mNSpNfW7qmbSJkt5XVKGXVwzGsin7x3o@dpg-cp73907sc6pc73cq2bm0-a.oregon-postgres.render.com/dongjin_love_db'))
+	"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
