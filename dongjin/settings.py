@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-zkvi!&0_69px@f^96(agn#^@f70gld!&0z3pl$rsv=2bvww9r%')
+SECRET_KEY = os.environ.get('259a0fsH7MYtT2XxPlChMX2FNJ7XsU0o', 'django-insecure-zkvi!&0_69px@f^96(agn#^@f70gld!&0z3pl$rsv=2bvww9r%')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
@@ -129,7 +129,7 @@ WSGI_APPLICATION = 'dongjin.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(("DATABASE_URL"))
+    'default': dj_database_url.config(("postgres://dongjin_love_db_wsry_user:259a0fsH7MYtT2XxPlChMX2FNJ7XsU0o@dpg-cp74cb0l5elc73e3emn0-a.oregon-postgres.render.com/dongjin_love_db_wsry"))
 }
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
