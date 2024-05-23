@@ -11,12 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+# Import dj-database-url at the beginning of the file.
 import dj_database_url
 import os
-from dotenv import load_dotenv
-
-# Load environment variables from .env file
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,17 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('259a0fsH7MYtT2XxPlChMX2FNJ7XsU0o', 'django-insecure-zkvi!&0_69px@f^96(agn#^@f70gld!&0z3pl$rsv=2bvww9r%')
+SECRET_KEY = 'django-insecure-zkvi!&0_69px@f^96(agn#^@f70gld!&0z3pl$rsv=2bvww9r%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+DEBUG = True
 
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'localhost',
-    'dongjin-love-server.onrender.com'
-]
-
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -44,7 +36,7 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
     'movies',
     'accounts',
-    # rest framework
+    # rest framwork
     'rest_framework',
     'rest_framework.authtoken',
     # dj-rest-auth
@@ -85,7 +77,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     # corsheaders
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -129,10 +121,9 @@ WSGI_APPLICATION = 'dongjin.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(("postgres://dongjin_love_db_wsry_user:259a0fsH7MYtT2XxPlChMX2FNJ7XsU0o@dpg-cp74cb0l5elc73e3emn0-a.oregon-postgres.render.com/dongjin_love_db_wsry"))
+    'default': dj_database_url.config(default='postgres://dongjin_love_db_wsry_user:259a0fsH7MYtT2XxPlChMX2FNJ7XsU0o@dpg-cp74cb0l5elc73e3emn0-a.oregon-postgres.render.com/dongjin_love_db_wsry')
 }
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -164,6 +155,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -172,11 +164,10 @@ STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-if not DEBUG:    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
-    # and renames the files with unique names for each version to support long-term caching
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+DEBUG = False
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

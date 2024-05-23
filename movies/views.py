@@ -30,11 +30,11 @@ def moviesForGame(request):
   
   # genre_ids로 영화 필터링
   movies = Movie.objects.filter(genres__in=genre_ids).distinct()
-  random_movies = random.sample(list(movies), 16)
-  if not random_movies.exists():
+  
+  if not movies.exists():
       return Response({'detail': '제공된 장르에 해당하는 영화가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
   
-  serializer = MovieListSerializer(random_movies, many=True)
+  serializer = MovieListSerializer(movies, many=True)
   return Response(serializer.data, status=status.HTTP_200_OK)
     
   
@@ -89,15 +89,23 @@ def search(request):
     except Http404:
         return Response({"error": "영화가 없습니다."}, status=status.HTTP_404_NOT_FOUND)
   
-@api_view(['POST'])
+@api_view(['POST','PUT'])
 def like_movie(request, movie_id):
-    # movie = get_object_or_404(Movie, pk=movie_id)
-    movie = get_object_or_404(Movie, pk=142)
+    movie = get_object_or_404(Movie, pk=movie_id)
     User = get_user_model()
     user = User.objects.get(username=request.user)
-    user.like_movie.add(movie)
-    serializer = UserSerializer(user)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    if request.method == 'POST':
+      user.like_movie.add(movie)
+      serializer = UserSerializer(user)
+      return Response(serializer.data, status=status.HTTP_200_OK)
+    elif request.method == 'PUT':
+      like_movies = user.like_movie.all()
+      if movie in like_movies:
+          user.like_movie.remove(movie)
+      else:
+          user.like_movie.add(movie)
+      serializer = UserSerializer(user)
+      return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def get_movies(request):

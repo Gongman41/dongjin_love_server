@@ -40,14 +40,3 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         instance.like_genre.set(validated_data.get('like_genre', instance.like_genre.all()))
         instance.save()
         return instance
-
-class UserUpdateByGameSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = get_user_model()
-        fields = ['like_movie', 'lovepoint']
-
-    def update(self, instance, validated_data):
-        instance.lovepoint = validated_data.get('lovepoint', instance.lovepoint)
-        instance.like_movie.set(validated_data.get('like_movie', instance.like_movie.all()))
-        instance.save()
-        return instance
